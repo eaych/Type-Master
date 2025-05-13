@@ -1,0 +1,5 @@
+venv-grpc/
+EchoServer/
+__pycache__/
+*pb2*.py
+TypeMaster.pdf
