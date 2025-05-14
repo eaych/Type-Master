@@ -1,5 +1,4 @@
 import grpc
-import ntlk_helper
 from concurrent import futures
 import prompt_pb2
 import prompt_pb2_grpc
@@ -7,14 +6,14 @@ import prompt_pb2_grpc
 
 class PromptService(prompt_pb2_grpc.PromptServiceServicer):
     def GetPrompt(self, request, context):
-        print("got request")
-        output = []
-        generated_text = ntlk_helper.get_random_sentence().replace("\n", " ").split()
-        print(generated_text)
-        if request.level == 1:
-            print(generated_text)
+        print("got GetPrompt request")
 
-        return prompt_pb2.PromptResponse(prompt=''.join(output))
+        pre_defined = ["the quick brown fox jumps over the lazy dog",
+                       "The quick brown fox 2 jumps over the lazy dog",
+                       "The fox jumps over 2 dogs, doesn't it?"]
+        
+        return prompt_pb2.PromptResponse(prompt=pre_defined[request.level-1])
+
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=1))
@@ -26,10 +25,3 @@ def serve():
 
 if __name__ == '__main__':
     serve()
-
-
-'''
-a a a a a
-a a a a a a
-
-'''
