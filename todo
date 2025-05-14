@@ -1,0 +1,20 @@
+TODO:
+
+[] ScoringService
+- [] Scoring system
+- [] Leaderboard system
+[] adv PromptService
+- [] Prompt generator
+[] Logging using decorators
+- [] ! Service method calls
+[] README.md
+- [] Explains how to run each component
+-- [] Do additional arguments need to be supplied
+
+Bonus Marks:
+
+[] Write unit tests
+- [] adv prompt service
+-- [] check prompts are valid
+- [] scoring calculation logic
+-- [] check possible cases (see problem statement)
