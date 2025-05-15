@@ -13,6 +13,7 @@ def run():
 
         command = int(input(selection_screen))
 
+        # TODO: Clean up code
         if command == 1:
             # Play a round
             user_name = input("ENTER NAME: ")
@@ -25,17 +26,11 @@ def run():
             start = time.time()
             user_input = input()
             end = time.time()
-            speed = end - start
+            duration = end - start
 
-            correct = 0
-            for i in range(min(len(user_input), len(prompt.prompt))):
-                if user_input[i] == prompt.prompt[i]:
-                    correct += 1
-            accuracy = correct / len(prompt.prompt)
-
-
-            print(speed, accuracy)
-
+            results = Scoring.SubmitResult(scoring_pb2.TypingResult(name=user_name, level=level, prompt=prompt.prompt, typed_text=user_input, duration=duration))
+            
+            print(results.accuracy, results.score, results.speed)
 
 
 if __name__ == '__main__':

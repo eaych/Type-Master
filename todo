@@ -1,7 +1,7 @@
 # TODO:
 
 1. [ ] ScoringService
-    * [ ] Scoring system
+    * [x] Scoring system
     * [ ] Leaderboard system
 2. [ ] adv PromptService
     * [ ] Prompt generator
