@@ -1,9 +1,8 @@
 import grpc
 from concurrent import futures
-import prompt_pb2_grpc
-import scoring_pb2_grpc
-from prompt_service import *
-from scoring_service import *
+import prompt_pb2_grpc, scoring_pb2_grpc
+from prompt_service_basic import *
+from scoring_service_basic import *
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=1))

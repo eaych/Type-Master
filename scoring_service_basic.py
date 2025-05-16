@@ -1,7 +1,6 @@
 import grpc
 from concurrent import futures
-import scoring_pb2
-import scoring_pb2_grpc
+import scoring_pb2, scoring_pb2_grpc
 
 
 ACCURACY_WEIGHT = 1.4
@@ -23,21 +22,26 @@ message ScoreResponse {
 '''
 
 class ScoringService(scoring_pb2_grpc.ScoringServiceServicer):
+    def __init__(self):
+        self.leaderboard = []
+
     def SubmitResult(self, request, context):
         print("got SubmitResult request")
 
-        accuracy = calc_accuracy(request.typed_text, request.prompt)
-        speed = calc_speed(request.typed_text, request.duration)
-        score = calc_score(accuracy, speed)
+        accuracy = float(calc_accuracy(request.typed_text, request.prompt))
+        speed = float(calc_speed(request.typed_text, request.duration))
+        score = float(calc_score(accuracy, speed))
 
-        # TODO: send data to leaderboard
+        entry = scoring_pb2.LeaderboardEntry(name=request.name, level=request.level, accuracy=accuracy, speed=speed, score=score)
+
+        self.leaderboard.append(entry)
 
         return scoring_pb2.ScoreResponse(accuracy=accuracy, speed=speed, score=score)
 
     def GetLeaderboard(self, request, context):
         print("got GetLeaderboard request")
 
-        return scoring_pb2.GetLeaderboard()
+        return scoring_pb2.Leaderboard(entries=self.leaderboard)
 
 
 def calc_accuracy(user_input, prompt):

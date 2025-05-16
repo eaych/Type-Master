@@ -1,7 +1,6 @@
 import grpc
 from concurrent import futures
-import prompt_pb2
-import prompt_pb2_grpc
+import prompt_pb2, prompt_pb2_grpc
 
 
 class PromptService(prompt_pb2_grpc.PromptServiceServicer):

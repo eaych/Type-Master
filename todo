@@ -10,6 +10,12 @@
 4. [ ] README.md
     * [ ] Explains how to run each component
         * [ ] Do additional arguments need to be supplied
+5. [ ] Refactor file structure
+    * [ ] Fit files into:
+        * [ ] generated/ for generated files
+        * [ ] basic_grpc/ for basic functionality
+        * [ ] adv_grpc/ for advanced functionality
+        * [ ] microservices/ for services
 
 # Bonus Marks:
 
