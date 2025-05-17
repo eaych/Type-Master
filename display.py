@@ -24,3 +24,28 @@ YOUR PROMPT IS:
 
 PRESS ENTER TO BEGIN AND ENTER TO END
 """
+
+leaderboard_entry = \
+"""{score:>7.3f} | {accuracy:>10.3f}% | {speed:>5.3f} | {name}"""
+
+leaderboard_display = \
+"""---------------------------------
+LEADERBOARD:
+
+    Easy
+
+          score |    accuracy | speed | name
+        {easy_scores}
+
+    Medium
+
+          score |    accuracy | speed | name
+        {medium_scores}
+
+    Hard
+    
+          score |    accuracy | speed | name
+        {hard_scores}
+
+---------------------------------
+"""

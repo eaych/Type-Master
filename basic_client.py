@@ -37,8 +37,23 @@ def run():
                 
                 results = Scoring.GetLeaderboard(scoring_pb2.Empty())
 
-                print(results)
+                scores = {1: [], 2: [], 3: []}
+                for entry in results.entries:
 
+                    scores[entry.level].append(
+                        leaderboard_entry.format(
+                            score=entry.score,
+                            accuracy=entry.accuracy*100,
+                            speed=entry.speed,
+                            name=entry.name
+                        )
+                    )
+
+                print(leaderboard_display.format(
+                    easy_scores='\n\t'.join(scores[1]),
+                    medium_scores='\n\t'.join(scores[2]),
+                    hard_scores='\n\t'.join(scores[3])
+                ))
 
 if __name__ == '__main__':
     run()

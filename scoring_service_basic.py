@@ -40,8 +40,8 @@ class ScoringService(scoring_pb2_grpc.ScoringServiceServicer):
 
     def GetLeaderboard(self, request, context):
         print("got GetLeaderboard request")
-
-        return scoring_pb2.Leaderboard(entries=self.leaderboard)
+        
+        return scoring_pb2.Leaderboard(entries=sorted(self.leaderboard, key=lambda entry: entry.score))
 
 
 def calc_accuracy(user_input, prompt):
