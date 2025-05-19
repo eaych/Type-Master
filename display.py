@@ -24,6 +24,7 @@ YOUR PROMPT IS:
 
 PRESS ENTER TO BEGIN AND ENTER TO END
 """
+# TODO: Improve leaderboard layout, make it so speed / acc / score adjusts to number length
 
 leaderboard_entry = \
 """{score:>7.3f} | {accuracy:>10.3f}% | {speed:>5.3f} | {name}"""

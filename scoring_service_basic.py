@@ -23,7 +23,7 @@ message ScoreResponse {
 
 class ScoringService(scoring_pb2_grpc.ScoringServiceServicer):
     def __init__(self):
-        self.leaderboard = []
+        self.leaderboard = {1: [], 2: [], 3: []}
 
     def SubmitResult(self, request, context):
         print("got SubmitResult request")
@@ -34,14 +34,16 @@ class ScoringService(scoring_pb2_grpc.ScoringServiceServicer):
 
         entry = scoring_pb2.LeaderboardEntry(name=request.name, level=request.level, accuracy=accuracy, speed=speed, score=score)
 
-        self.leaderboard.append(entry)
+        self.leaderboard[request.level].append(entry)
 
+        self.leaderboard[request.level] = sorted(self.leaderboard[request.level], key=lambda entry: entry.score, reverse=True)[:3]
+    
         return scoring_pb2.ScoreResponse(accuracy=accuracy, speed=speed, score=score)
 
     def GetLeaderboard(self, request, context):
         print("got GetLeaderboard request")
         
-        return scoring_pb2.Leaderboard(entries=sorted(self.leaderboard, key=lambda entry: entry.score))
+        return scoring_pb2.Leaderboard(entries=(self.leaderboard[1] + self.leaderboard[2] + self.leaderboard[3]))
 
 
 def calc_accuracy(user_input, prompt):
@@ -62,7 +64,7 @@ def serve():
     scoring_pb2_grpc.add_ScoringServiceServicer_to_server(ScoringService(), server)
     server.add_insecure_port('[::]:50055')
     server.start()
-    print("Prompt server running on port 50055...")
+    print("Scoring server running on port 50055...")
     server.wait_for_termination()
 
 if __name__ == '__main__':

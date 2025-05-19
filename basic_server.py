@@ -10,7 +10,7 @@ def serve():
     scoring_pb2_grpc.add_ScoringServiceServicer_to_server(ScoringService(), server)
     server.add_insecure_port('[::]:50055')
     server.start()
-    print("Prompt server running on port 50055...")
+    print("Server running on port 50055...")
     server.wait_for_termination()
 
 if __name__ == '__main__':
