@@ -3,8 +3,9 @@
 1. [x] ScoringService
     * [x] Scoring system
     * [x] Leaderboard system
-2. [ ] adv PromptService
+2. [ ] adv Services
     * [ ] Prompt generator
+    * [x] JSON Leaderboard
 3. [ ] Logging using decorators
     * [ ] Service method calls
 4. [ ] README.md

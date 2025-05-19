@@ -7,7 +7,7 @@ ACCURACY_WEIGHT = 1.4
 
 class ScoringService(scoring_pb2_grpc.ScoringServiceServicer):
     def __init__(self):
-        self.leaderboard = {1: [], 2: [], 3: []}
+        self.leaderboard = {"1": [], "2": [], "3": []}
 
     def SubmitResult(self, request, context):
         print("got SubmitResult request")
@@ -18,16 +18,16 @@ class ScoringService(scoring_pb2_grpc.ScoringServiceServicer):
 
         entry = scoring_pb2.LeaderboardEntry(name=request.name, level=request.level, accuracy=accuracy, speed=speed, score=score)
 
-        self.leaderboard[request.level].append(entry)
+        self.leaderboard[str(request.level)].append(entry)
 
-        self.leaderboard[request.level] = sorted(self.leaderboard[request.level], key=lambda entry: entry.score, reverse=True)[:3]
+        self.leaderboard[str(request.level)] = sorted(self.leaderboard[str(request.level)], key=lambda entry: entry.score, reverse=True)[:3]
     
         return scoring_pb2.ScoreResponse(accuracy=accuracy, speed=speed, score=score)
 
     def GetLeaderboard(self, request, context):
         print("got GetLeaderboard request")
         
-        return scoring_pb2.Leaderboard(entries=(self.leaderboard[1] + self.leaderboard[2] + self.leaderboard[3]))
+        return scoring_pb2.Leaderboard(entries=(self.leaderboard["1"] + self.leaderboard["2"] + self.leaderboard["3"]))
 
 
 def calc_accuracy(user_input, prompt):

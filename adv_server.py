@@ -1,10 +1,16 @@
 import grpc
+import json
 from concurrent import futures
 import prompt_pb2_grpc, scoring_pb2_grpc
 from prompt_service_adv import *
 from scoring_service_adv import *
 
 def serve():
+    try:
+        with open("leaderboard.json", "x") as f:
+           json.dump({"1": [], "2": [], "3": []}, f) 
+    except:
+        pass
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=1))
     prompt_pb2_grpc.add_PromptServiceServicer_to_server(PromptService(), server)
     scoring_pb2_grpc.add_ScoringServiceServicer_to_server(ScoringService(), server)

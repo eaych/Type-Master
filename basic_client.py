@@ -37,7 +37,7 @@ def run():
                 
                 results = Scoring.GetLeaderboard(scoring_pb2.Empty())
 
-                scores = {1: [], 2: [], 3: []}
+                scores = {"1": [], "2": [], "3": []}
                 for entry in results.entries:
 
                     scores[entry.level].append(
