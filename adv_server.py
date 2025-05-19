@@ -1,8 +1,8 @@
 import grpc
 from concurrent import futures
 import prompt_pb2_grpc, scoring_pb2_grpc
-from prompt_service_basic import *
-from scoring_service_basic import *
+from prompt_service_adv import *
+from scoring_service_adv import *
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=1))
@@ -10,7 +10,7 @@ def serve():
     scoring_pb2_grpc.add_ScoringServiceServicer_to_server(ScoringService(), server)
     server.add_insecure_port('[::]:50055')
     server.start()
-    print("Basic Server running on port 50055...")
+    print("Advanced server running on port 50055...")
     server.wait_for_termination()
 
 if __name__ == '__main__':

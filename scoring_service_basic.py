@@ -5,22 +5,6 @@ import scoring_pb2, scoring_pb2_grpc
 
 ACCURACY_WEIGHT = 1.4
 
-'''
-message TypingResult {
-  string name = 1;
-  int32 level = 2;
-  string prompt = 3;
-  string typed_text = 4;
-  float duration = 5; // time in seconds
-}
-
-message ScoreResponse {
-  float accuracy = 1;
-  float speed = 2;
-  float score = 3;
-}
-'''
-
 class ScoringService(scoring_pb2_grpc.ScoringServiceServicer):
     def __init__(self):
         self.leaderboard = {1: [], 2: [], 3: []}

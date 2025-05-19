@@ -4,3 +4,4 @@ __pycache__/
 *pb2*.py
 TypeMaster.pdf
 *.log
+*.json
