@@ -1,3 +1,4 @@
+import logging
 import grpc
 from concurrent import futures
 import scoring_pb2, scoring_pb2_grpc

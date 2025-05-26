@@ -1,4 +1,5 @@
 import grpc
+import random
 import ntlk_helper
 from concurrent import futures
 import prompt_pb2, prompt_pb2_grpc
@@ -6,7 +7,7 @@ import prompt_pb2, prompt_pb2_grpc
 
 class PromptService(prompt_pb2_grpc.PromptServiceServicer):
     def GetPrompt(self, request, context):
-        print("got request")
+        print("got GetPrompt request")
         generated_text = ""
 
         while True:
@@ -32,10 +33,13 @@ class PromptService(prompt_pb2_grpc.PromptServiceServicer):
                     return prompt_pb2.PromptResponse(prompt=''.join(output))
             
             elif request.level == 3:
-                output = list(generated_text)
+                output = generated_text.split(" ")
 
-                if 20 < len(output) < 120 and any(c.isupper() for c in output) and any(c.isdigit() for c in output) and any(not c.isalnum() for c in output):
-                    return prompt_pb2.PromptResponse(prompt=''.join(output))
+                if all(all(not c.isdigit() for c in w) for w in output):
+                    output.insert(random.randint(0, len(output)), random.choice("1234567890"))
+
+                if 20 < len(' '.join(output)) < 120 and any(any(c.isupper() for c in w) for w in output) and any(any(not c.isalnum() for c in w) for w in output):
+                    return prompt_pb2.PromptResponse(prompt=' '.join(output))
 
 
 def serve():

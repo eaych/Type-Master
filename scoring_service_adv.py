@@ -17,21 +17,37 @@ class ScoringService(scoring_pb2_grpc.ScoringServiceServicer):
         speed = float(calc_speed(request.typed_text, request.duration))
         score = float(calc_score(accuracy, speed))
 
-        # entry = {"name": request.name, "level": request.level, "accuracy": accuracy, "speed": speed, "score": score}
-        entry = scoring_pb2.LeaderboardEntry(name=request.name, level=request.level, accuracy=accuracy, speed=speed, score=score)
+        entry = {"name": request.name, "level": request.level, "accuracy": accuracy, "speed": speed, "score": score}
+        #entry = scoring_pb2.LeaderboardEntry(name=request.name, level=request.level, accuracy=accuracy, speed=speed, score=score)
         
         self.leaderboard[str(request.level)].append(entry)
 
         self.leaderboard[str(request.level)] = sorted(self.leaderboard[str(request.level)], key=lambda entry: entry["score"], reverse=True)[:3]
         
+        with open("leaderboard.json", "w") as f:
+            json.dump(self.leaderboard, f)
+
         return scoring_pb2.ScoreResponse(accuracy=accuracy, speed=speed, score=score)
 
     def GetLeaderboard(self, request, context):
         print("got GetLeaderboard request")
         
-        print(self.leaderboard, type(self.leaderboard))
-        
-        return scoring_pb2.Leaderboard(entries=self.leaderboard)
+        #print(self.leaderboard, type(self.leaderboard))
+
+        parsed_leaderboard = {"1":[], "2":[], "3":[]}
+
+        #print(parsed_leaderboard)
+
+        for level, scores in self.leaderboard.items():
+            #print(level, scores)
+            for score in scores:
+                #print(score)
+                score_entry = scoring_pb2.LeaderboardEntry(name=score["name"], level=score["level"], accuracy=score["accuracy"], speed=score["speed"], score=score["score"])
+                parsed_leaderboard[level].append(score_entry)
+
+        #print(parsed_leaderboard)
+
+        return scoring_pb2.Leaderboard(entries=parsed_leaderboard["1"] + parsed_leaderboard["2"] + parsed_leaderboard["3"])
 
 
 def calc_accuracy(user_input, prompt):
