@@ -3,29 +3,28 @@
 ### Prerequisites
 
 + Python 3.10
-+ protobuf == 4.25.3
++ protobuf==4.25.3
 + grpcio==1.62.0 
 + grpcio-tools==1.62.0 
 + nltk>=3.8.1
 
-## Table of Contents
+## Table of Contents 
 
-1. Running the program
+1. [Running the program](#1-running-the-program)
 
-1. Client
+1. [Client](#2-client)
 
-1. Basic Server
+1. [Basic Server](#3-basic-server)
       
-    3.1 Basic Prompt Service
+    3.1 [Basic Prompt Service](#31-basic-prompt-service)
 
-    3.2 Basic Scoring Service
+    3.2 [Basic Scoring Service](#32-basic-scoring-service)
 
-1. Advanced Server
+1. [Advanced Server](#4-advanced-server)
 
-    4.1 Advanced Prompt Service
+    4.1 [Advanced Prompt Service](#41-advanced-prompt-service)
     
-    4.2 Advanced Scoring Service
-
+    4.2 [Advanced Scoring Service](#42-advanced-scoring-service)
 
 ## 1. Running the program
 
@@ -65,7 +64,7 @@ The basic prompt service has responds to the client with a predesigned prompt, o
 
 The basic scoring service stores all submitted scores into a local leaderboard, which will then be deleted upon closing the server.
 
-## 4. Advanced Server
+## 4. Advanced Server 
 
 ### 4.1 Advanced Prompt Service
 
@@ -73,5 +72,5 @@ Requires the `ntlk` library to run. This service responds to the client with a p
 
 ### 4.2 Advanced Scoring Service
 
-The advanced scoring service stores all submitted scores into a JSON object, which is then stored persistently in a `.json` file
+The advanced scoring service stores all submitted scores as a JSON object, which is then stored persistently in a `.json` file
 
