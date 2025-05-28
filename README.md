@@ -36,6 +36,8 @@ A server can be started by running either `basic_server.py` or `adv_server.py`.
 
 A client can be started by running `client.py`. 
 
+By default, the program will create and log service calls in `server.log`.
+
 ## 2. Client
 
 > Upon running, the user will be prompted with a selection screen. The user can then input a corresponding number: `1`, `2`, `3` to send commands to the server. Invalid inputs are ignored.

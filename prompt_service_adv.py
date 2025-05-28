@@ -4,7 +4,7 @@ import prompt_pb2, prompt_pb2_grpc
 
 import random
 
-import ntlk_helper
+import utils.ntlk_helper as ntlk_helper
 from utils.log_utils import *
 
 MIN_LENGTH = 30
