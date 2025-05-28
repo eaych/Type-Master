@@ -9,16 +9,17 @@ def run():
         Scoring = scoring_pb2_grpc.ScoringServiceStub(channel)
         
         while True:
-            command = int(input(selection_screen))
+            command = input(selection_screen)
 
-            if command == 3:
+            if command == "3":
                 break
 
-            # TODO: Clean up code
-            elif command == 1:
+            elif command == "1":
                 # Play a round
                 user_name = input("ENTER NAME: ")
-                level = int(input(difficulty_select))
+                level = input(difficulty_select)
+
+                level = 1 if level not in ["1", "2", "3"] else int(level)
 
                 prompt = Prompt.GetPrompt(prompt_pb2.LevelRequest(level=level))
 
@@ -31,9 +32,9 @@ def run():
 
                 results = Scoring.SubmitResult(scoring_pb2.TypingResult(name=user_name, level=level, prompt=prompt.prompt, typed_text=user_input, duration=duration))
                 
-                print(score_display.format(score=results.score, accuracy=results.accuracy*100, speed=results.speed))
+                print(score_display.format(score=results.score, accuracy=results.accuracy, speed=results.speed))
             
-            elif command == 2:
+            elif command == "2":
                 
                 results = Scoring.GetLeaderboard(scoring_pb2.Empty())
 
@@ -43,13 +44,13 @@ def run():
                     scores[entry.level].append(
                         leaderboard_entry.format(
                             score=entry.score,
-                            accuracy=entry.accuracy*100,
+                            accuracy=entry.accuracy,
                             speed=entry.speed,
                             name=entry.name
                         )
                     )
 
-                print(leaderboard_display.format(
+                input(leaderboard_display.format(
                     easy_scores='\n\t'.join(scores[1]),
                     medium_scores='\n\t'.join(scores[2]),
                     hard_scores='\n\t'.join(scores[3])

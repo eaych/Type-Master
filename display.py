@@ -22,8 +22,7 @@ YOUR PROMPT IS:
 
 {prompt}
 
-PRESS ENTER TO BEGIN AND ENTER TO END
-"""
+PRESS ENTER TO BEGIN AND ENTER TO END"""
 
 score_display = \
 """
@@ -38,7 +37,7 @@ SPEED: {speed}
 # TODO: Improve leaderboard layout, make it so speed / acc / score adjusts to number length
 
 leaderboard_entry = \
-"""{score:>7.3f} | {accuracy:>10.3f}% | {speed:>5.3f} | {name}"""
+"""{score:>15.3f} | {accuracy:>10.3f}% | {speed:>10.3f} | {name}"""
 
 leaderboard_display = \
 """---------------------------------
@@ -46,18 +45,19 @@ LEADERBOARD:
 
     Easy
 
-          score |    accuracy | speed | name
+                  score |    accuracy |      speed | name
         {easy_scores}
 
     Medium
 
-          score |    accuracy | speed | name
+                  score |    accuracy |      speed | name
         {medium_scores}
 
     Hard
     
-          score |    accuracy | speed | name
+                  score |    accuracy |      speed | name
         {hard_scores}
 
 ---------------------------------
+PRESS ENTER TO RETURN
 """

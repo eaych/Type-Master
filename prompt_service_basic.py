@@ -14,7 +14,7 @@ class PromptService(prompt_pb2_grpc.PromptServiceServicer):
                        "The quick brown fox 2 jumps over the lazy dog",
                        "The fox jumps over 2 dogs, doesn't it?"]
         
-        return prompt_pb2.PromptResponse(prompt=pre_defined[request.level-1])
+        return prompt_pb2.PromptResponse(prompt=pre_defined[request.level])
 
 @LogCalls(name=__name__, prefix="50055")
 def serve():

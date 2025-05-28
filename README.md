@@ -38,7 +38,7 @@ A client can be started by running `client.py`.
 
 ## 2. Client
 
-> Upon running, the user will be prompted with a selection screen. The user can then input a corresponding number: `1`, `2`, `3` to send commands to the server. Invalid inputs are ignored.~
+> Upon running, the user will be prompted with a selection screen. The user can then input a corresponding number: `1`, `2`, `3` to send commands to the server. Invalid inputs are ignored.
 
 ### Commands
 
@@ -70,7 +70,7 @@ Basic `PromptService` contains the method:
 
 Basic `ScoringService` contains the methods:
 
-`SubmitResult()`, which takes a `TypingResult` object containing the information `name`, `level`, `score`, `accuracy`, `speed`. If the submitted result's score is within the top 3 of the respective level, it will then be stored in the leaderboard. Responds with a `ScoreResult` object, containing the submitted score's accuracy, score, and speed.
+`SubmitResult()`, which takes a `TypingResult` object containing the information `name`, `level`, `score`, `accuracy`, `speed`. If the submitted result's score is within the top 3 of its respective level, it will then be stored in the leaderboard. Responds with a `ScoreResult` object, containing the submitted score's accuracy, score, and speed.
 
 `GetLeaderboard()`, which takes an `Empty` object as a parameter. Responds with a `Leaderboard` object, containing up to 9 `LeaderboardEntry` objects, each containing a name, level, score, accuracy, and speed.
 
@@ -90,7 +90,7 @@ Advanced `PromptService` contains the method:
 
 Advanced `ScoringService` contains the methods:
 
-`SubmitResult()`, which takes a `TypingResult` object, containing the information `name`, `level`, `score`, `accuracy`, `speed`. If the submitted result's score is within the top 3 of the respective level, it will then be stored in `Leaderboard`. Responds with a `ScoreResult` object, containing the submitted score's accuracy, score, and speed.
+`SubmitResult()`, which takes a `TypingResult` object, containing the information `name`, `level`, `score`, `accuracy`, `speed`. If the submitted result's score is within the top 3 of its respective level, it will then be stored in `Leaderboard`. Responds with a `ScoreResult` object, containing the submitted score's accuracy, score, and speed.
 
 `GetLeaderboard()`, which takes an `Empty` object. Responds with a `Leaderboard` object, containing up to 9 `LeaderboardEntry` objects, each containing a name, level, score, accuracy, and speed.
 

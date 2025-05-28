@@ -24,7 +24,7 @@ class PromptService(prompt_pb2_grpc.PromptServiceServicer):
                         output.append(c.lower())
 
                 if MIN_LENGTH < len(output) < MAX_LENGTH:
-                    return prompt_pb2.PromptResponse(prompt=''.join(output))
+                    break
                 
             elif request.level == 2:
                 for c in generated_text:
@@ -32,7 +32,7 @@ class PromptService(prompt_pb2_grpc.PromptServiceServicer):
                         output.append(c)
 
                 if MIN_LENGTH < len(output) < MAX_LENGTH and (any(c.isupper() for c in output) or any(c.isdigit() for c in output)):
-                    return prompt_pb2.PromptResponse(prompt=''.join(output))
+                    break
             
             elif request.level == 3:
                 output = generated_text.split(" ")
@@ -41,7 +41,9 @@ class PromptService(prompt_pb2_grpc.PromptServiceServicer):
                     output.insert(random.randint(0, len(output)), random.choice("1234567890"))
 
                 if MIN_LENGTH < len(' '.join(output)) < MAX_LENGTH and any(any(c.isupper() for c in w) for w in output) and any(any(not c.isalnum() for c in w) for w in output):
-                    return prompt_pb2.PromptResponse(prompt=' '.join(output))
+                    break
+                
+        return prompt_pb2.PromptResponse(prompt=''.join(output))
 
 @LogCalls(name=__name__, prefix="50055")
 def serve():

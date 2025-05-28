@@ -1,9 +1,8 @@
 import grpc
 from log_utils import *
+from score_utils import *
 from concurrent import futures
 import scoring_pb2, scoring_pb2_grpc
-
-ACCURACY_WEIGHT = 1.4
 
 class ScoringService(scoring_pb2_grpc.ScoringServiceServicer):
     def __init__(self):
@@ -28,20 +27,6 @@ class ScoringService(scoring_pb2_grpc.ScoringServiceServicer):
     def GetLeaderboard(self, request, context):
         
         return scoring_pb2.Leaderboard(entries=(self.leaderboard["1"] + self.leaderboard["2"] + self.leaderboard["3"]))
-
-
-def calc_accuracy(user_input, prompt):
-    correct = 0
-    for i in range(min(len(user_input), len(prompt))):
-        if user_input[i] == prompt[i]:
-            correct += 1
-    return correct / len(prompt)
-
-def calc_speed(user_input, duration):
-    return len(user_input) / duration
-
-def calc_score(accuracy, speed):
-    return accuracy ** ACCURACY_WEIGHT * speed
 
 @LogCalls(name=__name__, prefix="50055")
 def serve():
