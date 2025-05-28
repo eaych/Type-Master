@@ -88,7 +88,7 @@ Advanced `PromptService` contains the method:
 
 ### 4.2 Advanced Scoring Service
 
-> The advanced scoring service stores all submitted scores as a JSON object, which is then stored persistently in a `.json` file. Upon starting the server, it will read and store the JSON object as a dictionary, which will be modified as needed before writing to persistent storage whenever a score is submitted.
+> The advanced scoring service stores all submitted scores as a JSON object, which is then stored persistently in a `leaderboard.json` file. Upon starting the server, it will read and store the JSON object as a dictionary, which will be modified as needed before writing to persistent storage whenever a score is submitted. If `leaderboard.json` does not exist, it will automatically be created and filled with an empty object.
 
 Advanced `ScoringService` contains the methods:
 
