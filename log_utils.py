@@ -2,7 +2,8 @@ from functools import wraps
 import logging
 
 class LogCalls:
-    def __init__(self, level=logging.DEBUG, file='server.log', name=__name__):
+    def __init__(self, level=logging.DEBUG, file='server.log', name=__name__, prefix=""):
+        self.prefix = prefix + ":" if prefix else ""
         self.name = name
         logging.basicConfig(filename=file, level=level)
         self.logger = logging.getLogger(self.name)
@@ -10,13 +11,13 @@ class LogCalls:
     def __call__(self, func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            self.logger.info(f"{func.__name__} called")
+            self.logger.info(f"{self.prefix}{func.__name__} called")
             if args:
-                self.logger.debug(f"{func.__name__}:args:\n{args}")
+                self.logger.debug(f"{self.prefix}{func.__name__}:args:\n{args}")
             if kwargs:
-                self.logger.debug(f"{func.__name__}:kwargs:\n{kwargs}")
+                self.logger.debug(f"{self.prefix}{func.__name__}:kwargs:\n{kwargs}")
 
             result = func(*args, **kwargs)
-            self.logger.debug(f"{func.__name__} returned\n{result}")
+            self.logger.debug(f"{self.prefix}{func.__name__} returned\n{result}")
             return result
         return wrapper

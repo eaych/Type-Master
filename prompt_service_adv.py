@@ -18,8 +18,6 @@ class PromptService(prompt_pb2_grpc.PromptServiceServicer):
             output = []
             generated_text = ntlk_helper.get_random_sentence().replace("\n", " ")
 
-            print(generated_text)
-
             if request.level == 1:
                 for c in generated_text:
                     if c == " " or c.isalpha():
@@ -45,7 +43,7 @@ class PromptService(prompt_pb2_grpc.PromptServiceServicer):
                 if MIN_LENGTH < len(' '.join(output)) < MAX_LENGTH and any(any(c.isupper() for c in w) for w in output) and any(any(not c.isalnum() for c in w) for w in output):
                     return prompt_pb2.PromptResponse(prompt=' '.join(output))
 
-@LogCalls(name=__name__)
+@LogCalls(name=__name__, prefix="50055")
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=1))
     prompt_pb2_grpc.add_PromptServiceServicer_to_server(PromptService(), server)

@@ -6,7 +6,7 @@ import prompt_pb2_grpc, scoring_pb2_grpc
 from prompt_service_adv import *
 from scoring_service_adv import *
 
-@LogCalls(name=__name__)
+@LogCalls(name=__name__, prefix="50055")
 def serve():
     try:
         with open("leaderboard.json", "x") as f:
