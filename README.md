@@ -46,7 +46,7 @@ By default, the program will create and log service calls in `server.log`.
 
 #### `1` Start a new challenge
 
-The user inputs their username, desired difficulty and will receive a prompt to copy. After submission, the user will receive statistics and the score will be saved to the server leaderboard.
+The user inputs their username, desired difficulty and will receive a prompt to copy. After submission, the user will receive statistics and the score may be saved to the server leaderboard.
 
 #### `2` View Scoreboard
 
