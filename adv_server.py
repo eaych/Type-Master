@@ -6,7 +6,7 @@ from scoring_service_adv import *
 
 import json
 
-from log_utils import *
+from utils.log_utils import *
 
 @LogCalls(name=__name__, prefix="50055")
 def serve():

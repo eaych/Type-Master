@@ -4,8 +4,8 @@ from concurrent import futures
 
 import json
 
-from log_utils import *
-from score_utils import *
+from utils.log_utils import *
+from utils.score_utils import *
 
 
 class ScoringService(scoring_pb2_grpc.ScoringServiceServicer):

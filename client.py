@@ -3,7 +3,7 @@ import prompt_pb2, prompt_pb2_grpc, scoring_pb2, scoring_pb2_grpc
 
 import time
 
-from display import *
+from utils.display_utils import *
 
 def run():
     with grpc.insecure_channel('localhost:50055') as channel:
