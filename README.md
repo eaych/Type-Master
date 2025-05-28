@@ -60,11 +60,11 @@ Quits the client app.
 
 ### 3.1 Basic Prompt Service
 
-> The basic prompt service has responds to the client with a predesigned prompt, one for each difficulty. 
+> The basic prompt service responds to the client with a predesigned prompt, one for each difficulty. 
 
 Basic `PromptService` contains the method: 
 
-`GetPrompt()`, which takes a `LevelRequest` object, containing the desired level, as a parameter. Responds with a `PromptResponse` object, containing the corresponding prompt.
+`GetPrompt()`, takes a `LevelRequest` object containing the desired level as a parameter. Responds with a `PromptResponse` object containing the corresponding prompt.
 
 ### 3.2 Basic Scoring service
 
@@ -72,7 +72,7 @@ Basic `PromptService` contains the method:
 
 Basic `ScoringService` contains the methods:
 
-`SubmitResult()`, which takes a `TypingResult` object containing the information `name`, `level`, `score`, `accuracy`, `speed`. If the submitted result's score is within the top 3 of its respective level, it will then be stored in the leaderboard. Responds with a `ScoreResult` object, containing the submitted score's accuracy, score, and speed.
+`SubmitResult()`, which takes a `TypingResult` object containing the information `name`, `level`, `prompt`, `typed_text`, `duration`. If the submitted result's score is within the top 3 of its respective level, it will then be stored in the leaderboard. Responds with a `ScoreResult` object, containing the submitted score's `accuracy`, `score`, and `speed`.
 
 `GetLeaderboard()`, which takes an `Empty` object as a parameter. Responds with a `Leaderboard` object, containing up to 9 `LeaderboardEntry` objects, each containing a name, level, score, accuracy, and speed.
 
@@ -92,7 +92,7 @@ Advanced `PromptService` contains the method:
 
 Advanced `ScoringService` contains the methods:
 
-`SubmitResult()`, which takes a `TypingResult` object, containing the information `name`, `level`, `score`, `accuracy`, `speed`. If the submitted result's score is within the top 3 of its respective level, it will then be stored in `Leaderboard`. Responds with a `ScoreResult` object, containing the submitted score's accuracy, score, and speed.
+`SubmitResult()`, which takes a `TypingResult` object containing the information `name`, `level`, `prompt`, `typed_text`, `duration`. If the submitted result's score is within the top 3 of its respective level, it will then be stored in the leaderboard. Responds with a `ScoreResult` object, containing the submitted score's `accuracy`, `score`, and `speed`.
 
 `GetLeaderboard()`, which takes an `Empty` object. Responds with a `Leaderboard` object, containing up to 9 `LeaderboardEntry` objects, each containing a name, level, score, accuracy, and speed.
 
