@@ -1,10 +1,8 @@
 import grpc
-import logging
-from concurrent import futures
-from log_utils import *
 import prompt_pb2, prompt_pb2_grpc
+from concurrent import futures
 
-logger = logging.getLogger(__name__)
+from log_utils import *
 
 class PromptService(prompt_pb2_grpc.PromptServiceServicer):
     @LogCalls(name=__name__)

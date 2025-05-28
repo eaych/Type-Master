@@ -1,9 +1,10 @@
 import grpc
-import logging
-import random
-import ntlk_helper
 from concurrent import futures
 import prompt_pb2, prompt_pb2_grpc
+
+import random
+
+import ntlk_helper
 from log_utils import *
 
 MIN_LENGTH = 30

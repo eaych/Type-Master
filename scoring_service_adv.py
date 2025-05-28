@@ -1,10 +1,11 @@
 import grpc
+import scoring_pb2, scoring_pb2_grpc
+from concurrent import futures
+
 import json
-import logging
+
 from log_utils import *
 from score_utils import *
-from concurrent import futures
-import scoring_pb2, scoring_pb2_grpc
 
 
 class ScoringService(scoring_pb2_grpc.ScoringServiceServicer):

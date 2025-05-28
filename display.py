@@ -33,9 +33,6 @@ ACCURACY: {accuracy}
 SPEED: {speed}
 """
 
-
-# TODO: Improve leaderboard layout, make it so speed / acc / score adjusts to number length
-
 leaderboard_entry = \
 """{score:>15.3f} | {accuracy:>10.3f}% | {speed:>10.3f} | {name}"""
 

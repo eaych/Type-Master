@@ -1,6 +1,6 @@
+import logging
 from functools import wraps
 from time import asctime
-import logging
 
 class LogCalls:
     def __init__(self, level=logging.DEBUG, file='server.log', name=__name__, prefix=""):

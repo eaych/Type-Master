@@ -1,6 +1,8 @@
 import grpc
-import time
 import prompt_pb2, prompt_pb2_grpc, scoring_pb2, scoring_pb2_grpc
+
+import time
+
 from display import *
 
 def run():

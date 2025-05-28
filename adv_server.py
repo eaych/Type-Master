@@ -1,10 +1,12 @@
 import grpc
-import json
-from log_utils import *
-from concurrent import futures
 import prompt_pb2_grpc, scoring_pb2_grpc
+from concurrent import futures
 from prompt_service_adv import *
 from scoring_service_adv import *
+
+import json
+
+from log_utils import *
 
 @LogCalls(name=__name__, prefix="50055")
 def serve():
