@@ -1,13 +1,17 @@
 import grpc
+import logging
 import random
 import ntlk_helper
 from concurrent import futures
 import prompt_pb2, prompt_pb2_grpc
+from log_utils import *
 
+MIN_LENGTH = 30
+MAX_LENGTH = 120
 
 class PromptService(prompt_pb2_grpc.PromptServiceServicer):
+    @LogCalls(name=__name__)
     def GetPrompt(self, request, context):
-        print("got GetPrompt request")
         generated_text = ""
 
         while True:
@@ -21,7 +25,7 @@ class PromptService(prompt_pb2_grpc.PromptServiceServicer):
                     if c == " " or c.isalpha():
                         output.append(c.lower())
 
-                if 20 < len(output) < 120:
+                if MIN_LENGTH < len(output) < MAX_LENGTH:
                     return prompt_pb2.PromptResponse(prompt=''.join(output))
                 
             elif request.level == 2:
@@ -29,7 +33,7 @@ class PromptService(prompt_pb2_grpc.PromptServiceServicer):
                     if c == " " or c.isalnum():
                         output.append(c)
 
-                if 20 < len(output) < 120 and (any(c.isupper() for c in output) or any(c.isdigit() for c in output)):
+                if MIN_LENGTH < len(output) < MAX_LENGTH and (any(c.isupper() for c in output) or any(c.isdigit() for c in output)):
                     return prompt_pb2.PromptResponse(prompt=''.join(output))
             
             elif request.level == 3:
@@ -38,16 +42,15 @@ class PromptService(prompt_pb2_grpc.PromptServiceServicer):
                 if all(all(not c.isdigit() for c in w) for w in output):
                     output.insert(random.randint(0, len(output)), random.choice("1234567890"))
 
-                if 20 < len(' '.join(output)) < 120 and any(any(c.isupper() for c in w) for w in output) and any(any(not c.isalnum() for c in w) for w in output):
+                if MIN_LENGTH < len(' '.join(output)) < MAX_LENGTH and any(any(c.isupper() for c in w) for w in output) and any(any(not c.isalnum() for c in w) for w in output):
                     return prompt_pb2.PromptResponse(prompt=' '.join(output))
 
-
+@LogCalls(name=__name__)
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=1))
     prompt_pb2_grpc.add_PromptServiceServicer_to_server(PromptService(), server)
     server.add_insecure_port('[::]:50055')
     server.start()
-    print("Prompt server running on port 50055...")
     server.wait_for_termination()
 
 if __name__ == '__main__':

@@ -1,5 +1,7 @@
 import grpc
 import json
+import logging
+from log_utils import *
 from concurrent import futures
 import scoring_pb2, scoring_pb2_grpc
 
@@ -10,8 +12,8 @@ class ScoringService(scoring_pb2_grpc.ScoringServiceServicer):
         with open("leaderboard.json", "r") as f:
             self.leaderboard = json.load(f)
 
+    @LogCalls(name=__name__)
     def SubmitResult(self, request, context):
-        print("got SubmitResult request")
 
         accuracy = float(calc_accuracy(request.typed_text, request.prompt))
         speed = float(calc_speed(request.typed_text, request.duration))
@@ -29,8 +31,8 @@ class ScoringService(scoring_pb2_grpc.ScoringServiceServicer):
 
         return scoring_pb2.ScoreResponse(accuracy=accuracy, speed=speed, score=score)
 
+    @LogCalls(name=__name__)
     def GetLeaderboard(self, request, context):
-        print("got GetLeaderboard request")
         
         #print(self.leaderboard, type(self.leaderboard))
 
@@ -63,12 +65,12 @@ def calc_speed(user_input, duration):
 def calc_score(accuracy, speed):
     return accuracy ** ACCURACY_WEIGHT * speed
 
+@LogCalls(name=__name__)
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=1))
     scoring_pb2_grpc.add_ScoringServiceServicer_to_server(ScoringService(), server)
     server.add_insecure_port('[::]:50055')
     server.start()
-    print("Scoring server running on port 50055...")
     server.wait_for_termination()
 
 if __name__ == '__main__':

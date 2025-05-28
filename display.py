@@ -24,6 +24,17 @@ YOUR PROMPT IS:
 
 PRESS ENTER TO BEGIN AND ENTER TO END
 """
+
+score_display = \
+"""
+RESULTS
+
+SCORE: {score}
+ACCURACY: {accuracy}
+SPEED: {speed}
+"""
+
+
 # TODO: Improve leaderboard layout, make it so speed / acc / score adjusts to number length
 
 leaderboard_entry = \

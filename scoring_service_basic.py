@@ -1,8 +1,9 @@
-import logging
 import grpc
+import logging
 from concurrent import futures
 import scoring_pb2, scoring_pb2_grpc
 
+logger = logging.getLogger(__name__)
 
 ACCURACY_WEIGHT = 1.4
 
@@ -11,7 +12,7 @@ class ScoringService(scoring_pb2_grpc.ScoringServiceServicer):
         self.leaderboard = {"1": [], "2": [], "3": []}
 
     def SubmitResult(self, request, context):
-        print("got SubmitResult request")
+        logger.debug('Request received')
 
         accuracy = float(calc_accuracy(request.typed_text, request.prompt))
         speed = float(calc_speed(request.typed_text, request.duration))
@@ -26,7 +27,7 @@ class ScoringService(scoring_pb2_grpc.ScoringServiceServicer):
         return scoring_pb2.ScoreResponse(accuracy=accuracy, speed=speed, score=score)
 
     def GetLeaderboard(self, request, context):
-        print("got GetLeaderboard request")
+        logger.debug('Request received')
         
         return scoring_pb2.Leaderboard(entries=(self.leaderboard["1"] + self.leaderboard["2"] + self.leaderboard["3"]))
 
@@ -49,7 +50,7 @@ def serve():
     scoring_pb2_grpc.add_ScoringServiceServicer_to_server(ScoringService(), server)
     server.add_insecure_port('[::]:50055')
     server.start()
-    print("Scoring server running on port 50055...")
+    logger.info('Basic Scoring Service running on port 50055...')
     server.wait_for_termination()
 
 if __name__ == '__main__':

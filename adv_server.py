@@ -1,10 +1,12 @@
 import grpc
 import json
+from log_utils import *
 from concurrent import futures
 import prompt_pb2_grpc, scoring_pb2_grpc
 from prompt_service_adv import *
 from scoring_service_adv import *
 
+@LogCalls(name=__name__)
 def serve():
     try:
         with open("leaderboard.json", "x") as f:
@@ -16,7 +18,6 @@ def serve():
     scoring_pb2_grpc.add_ScoringServiceServicer_to_server(ScoringService(), server)
     server.add_insecure_port('[::]:50055')
     server.start()
-    print("Advanced server running on port 50055...")
     server.wait_for_termination()
 
 if __name__ == '__main__':

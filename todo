@@ -6,11 +6,11 @@
 2. [x] adv Services
     * [x] Prompt generator
     * [x] JSON Leaderboard
-3. [ ] Logging using decorators
-    * [ ] Service method calls
-4. [ ] README.md
-    * [ ] Explains how to run each component
-        * [ ] Do additional arguments need to be supplied
+3. [x] Logging using decorators
+    * [x] Service method calls
+4. [x] README.md
+    * [x] Explains how to run each component
+        * [x] Do additional arguments need to be supplied
 5. [ ] Refactor
     * [ ] Adjust leaderboard layout
     * [ ] Fit files into:

@@ -31,7 +31,7 @@ def run():
 
                 results = Scoring.SubmitResult(scoring_pb2.TypingResult(name=user_name, level=level, prompt=prompt.prompt, typed_text=user_input, duration=duration))
                 
-                print(results.accuracy, results.score, results.speed)
+                print(score_display.format(score=results.score, accuracy=results.accuracy*100, speed=results.speed))
             
             elif command == 2:
                 
