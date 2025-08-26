@@ -1,11 +1,11 @@
 import grpc
 from concurrent import futures
-import prompt_pb2, prompt_pb2_grpc
+from generated import prompt_pb2, prompt_pb2_grpc
 
 import random
 
 import utils.ntlk_helper as ntlk_helper
-from utils.log_utils import *
+from utils.logging import *
 
 MIN_LENGTH = 30
 MAX_LENGTH = 120

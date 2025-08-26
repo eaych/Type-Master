@@ -1,10 +1,11 @@
 import grpc
-import prompt_pb2_grpc, scoring_pb2_grpc
 from concurrent import futures
-from prompt_service_basic import *
-from scoring_service_basic import *
 
-from utils.log_utils import *
+from TypeMaster.generated import prompt_pb2_grpc, scoring_pb2_grpc
+from TypeMaster.services.prompt_service_basic import *
+from TypeMaster.services.scoring_service_basic import *
+
+from utils.logging import *
 
 @LogCalls(name=__name__, prefix="50055")
 def serve():

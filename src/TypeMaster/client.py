@@ -1,9 +1,8 @@
 import grpc
-import prompt_pb2, prompt_pb2_grpc, scoring_pb2, scoring_pb2_grpc
-
 import time
 
-from utils.display_utils import *
+from TypeMaster.generated import prompt_pb2, scoring_pb2, prompt_pb2_grpc, scoring_pb2_grpc
+from TypeMaster.utils.ui import *
 
 def run():
     with grpc.insecure_channel('localhost:50055') as channel:

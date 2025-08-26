@@ -1,18 +1,18 @@
 selection_screen = \
 """---------------------------------
 SELECT AN OPTION:
-    1. Start a new challenge
-    2. View Scoreboard
-    3. Exit
+    1 Start a new challenge
+    2 View Scoreboard
+    3 Exit
 ---------------------------------
 """
 
 difficulty_select = \
 """---------------------------------
 SELECT A DIFFICULTY:
-    1. Easy
-    2. Medium
-    3. Hard
+    1 Easy
+    2 Medium
+    3 Hard
 ---------------------------------
 """
 
