@@ -12,31 +12,42 @@
 
 1. [Running the program](#1-running-the-program)
 
-1. [Client](#2-client)
-
-1. [Basic Server](#3-basic-server)
+2. [Client](#2-client)
+ 
+3. [Basic Server](#3-basic-server)
       
     3.1 [Basic Prompt Service](#31-basic-prompt-service)
 
     3.2 [Basic Scoring Service](#32-basic-scoring-service)
 
-1. [Advanced Server](#4-advanced-server)
+4. [Advanced Server](#4-advanced-server)
 
     4.1 [Advanced Prompt Service](#41-advanced-prompt-service)
     
     4.2 [Advanced Scoring Service](#42-advanced-scoring-service)
 
+5. [Note](#note)
+
 ## 1. Running the program
 
-Run `pip install -r requirements.txt` to install prerequisites for Type Master.
+Install prerequisites for Type Master:
+```sh
+pip install -r requirements.txt
+```
+Starting a server
+```sh
+./bin/start_server.sh mode
 
-After downloading prerequisites, run `build.sh` to build required grpc stubs.
+Supported modes:
+    basic
+    advanced
+```
+Starting a client
+```sh
+./bin/start_client.sh
+```
 
-A server can be started by running either `basic_server.py` or `adv_server.py`.
-
-A client can be started by running `client.py`. 
-
-By default, the program will create and log service calls in `server.log`.
+By default, the program will create and log service calls in `./src/TypeMaster/server.log`.
 
 ## 2. Client
 
@@ -64,7 +75,9 @@ Quits the client app.
 
 Basic `PromptService` contains the method: 
 
-`GetPrompt()`, takes a `LevelRequest` object containing the desired level as a parameter. Responds with a `PromptResponse` object containing the corresponding prompt.
+`GetPrompt(LevelRequest) --> PromptResponse`
+* Takes a `LevelRequest` object containing the desired level as a parameter. 
+* Responds with a `PromptResponse` object containing the corresponding prompt.
 
 ### 3.2 Basic Scoring service
 
@@ -72,9 +85,14 @@ Basic `PromptService` contains the method:
 
 Basic `ScoringService` contains the methods:
 
-`SubmitResult()`, which takes a `TypingResult` object containing the information `name`, `level`, `prompt`, `typed_text`, `duration`. If the submitted result's score is within the top 3 of its respective level, it will then be stored in the leaderboard. Responds with a `ScoreResult` object, containing the submitted score's `accuracy`, `score`, and `speed`.
+`SubmitResult(TypingResult) --> ScoreResult` 
+* Takes a `TypingResult` object containing the information `name`, `level`, `prompt`, `typed_text`, `duration`. If the submitted result's score is within the top 3 of its respective level, it will then be stored in the leaderboard. 
+* Responds with a `ScoreResult` object, containing the submitted score's `accuracy`, `score`, and `speed`.
 
-`GetLeaderboard()`, which takes an `Empty` object as a parameter. Responds with a `Leaderboard` object, containing up to 9 `LeaderboardEntry` objects, each containing a name, level, score, accuracy, and speed.
+`GetLeaderboard(Empty) --> Leaderboard`
+
+* Takes an `Empty` object as a parameter. 
+* Responds with a `Leaderboard` object, containing up to 9 `LeaderboardEntry` objects, each containing a name, level, score, accuracy, and speed.
 
 ## 4. Advanced Server 
 
@@ -84,7 +102,9 @@ Basic `ScoringService` contains the methods:
 
 Advanced `PromptService` contains the method: 
 
-`GetPrompt()`, which takes a `LevelRequest` object, containing the desired level, as a parameter. Responds with a `PromptResponse` object, containing a string generated on request which may be modified to fit the desired difficulty level.
+`GetPrompt(LevelRequest) --> PromptResponse`
+* Takes a `LevelRequest` object, containing the desired level, as a parameter.
+* Responds with a `PromptResponse` object, containing a string generated on request which may be modified to fit the desired difficulty level.
 
 ### 4.2 Advanced Scoring Service
 
@@ -92,7 +112,21 @@ Advanced `PromptService` contains the method:
 
 Advanced `ScoringService` contains the methods:
 
-`SubmitResult()`, which takes a `TypingResult` object containing the information `name`, `level`, `prompt`, `typed_text`, `duration`. If the submitted result's score is within the top 3 of its respective level, it will then be stored in the leaderboard. Responds with a `ScoreResult` object, containing the submitted score's `accuracy`, `score`, and `speed`.
+`SubmitResult(TypingResult) --> ScoreResult`
+* Takes a `TypingResult` object containing the information `name`, `level`, `prompt`, `typed_text`, `duration`. If the submitted result's score is within the top 3 of its respective level, it will then be stored in the leaderboard.
+* Responds with a `ScoreResult` object, containing the submitted score's `accuracy`, `score`, and `speed`.
 
-`GetLeaderboard()`, which takes an `Empty` object. Responds with a `Leaderboard` object, containing up to 9 `LeaderboardEntry` objects, each containing a name, level, score, accuracy, and speed.
+`GetLeaderboard(Empty) --> Leaderboard`
+* Takes an `Empty` object.
+* Responds with a `Leaderboard` object, containing up to 9 `LeaderboardEntry` objects, each containing a name, level, score, accuracy, and speed.
 
+## NOTE:
+
+If you run `./bin/build.sh`, a warning will displayed regarding the regenerated protobuf files not importing correctly.
+
+In this case, follow the instructions and go to `./src/TypeMaster/generated`, and edit `prompt_pb2_grpc.py` and `scoring_pb2_grpc.py` and prepend `Typemaster.generated.<file>` to the import statement, e.g:
+
+```py
+import TypeMaster.generated.prompt_pb2 as prompt__pb2
+import TypeMaster.generated.scoring_pb2 as scoring__pb2
+```

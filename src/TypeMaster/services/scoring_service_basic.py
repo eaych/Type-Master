@@ -1,9 +1,9 @@
 import grpc
-import scoring_pb2, scoring_pb2_grpc
+from generated import scoring_pb2, scoring_pb2_grpc
 from concurrent import futures
 
-from utils.log_utils import *
-from utils.score_utils import *
+from utils.logging import *
+from utils.scoring import *
 
 class ScoringService(scoring_pb2_grpc.ScoringServiceServicer):
     def __init__(self):
