@@ -37,11 +37,9 @@ pip install -r requirements.txt
 Starting a server
 ```sh
 ./bin/start_server.sh mode
-
-Supported modes:
-    basic
-    advanced
 ```
+Supported modes: `basic`, `advanced`
+
 Starting a client
 ```sh
 ./bin/start_client.sh
