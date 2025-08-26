@@ -18,8 +18,10 @@ EOF
 command="python -m TypeMaster"
 if [ "$1" = "basic" ]; then
     PYTHONPATH="$SCRIPT_DIR/../src/" python -m TypeMaster.basic_server
+    echo "Basic server running..."
 elif [ "$1" = "advanced" ]; then
     PYTHONPATH="$SCRIPT_DIR/../src/" python -m TypeMaster.adv_server
+    echo "Advanced server running..."
 else
     help
 fi
